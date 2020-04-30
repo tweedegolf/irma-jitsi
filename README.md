@@ -3,6 +3,8 @@
 Enter a [Jitsi](https://jitsi.org/) videoconference securely with an immutable authenticated identity.
 The authentication is done using [IRMA](https://irma.app), a digital passport on your phone.
 
+Visit [jitsi-demo.tweede.golf](https://jitsi-demo.tweede.golf/) for a short demo.
+
 This project is partially funded using public european funds. Therefore this project is licensed under the EUPLv1.2.
 
 ## Structure

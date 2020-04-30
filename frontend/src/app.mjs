@@ -1,3 +1,5 @@
+import regeneratorRuntime from 'regenerator-runtime';
+
 import axios from 'axios';
 import { handleSession } from '@privacybydesign/irmajs';
 import React from 'react';

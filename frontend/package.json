@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build": "NODE_ENV=production parcel build --no-source-maps -d dist src/index.html"
+  },
   "dependencies": {
+    "regenerator-runtime": "^0.13.5",
     "@privacybydesign/irmajs": "^0.1.9",
     "axios": "^0.19.2",
     "react": "^16.13.1",
@@ -13,7 +17,7 @@
     "@material-ui/lab": "^4.0.0-alpha.46"
   },
   "devDependencies": {
-    "parcel": "^2.0.0-alpha.3.2",
+    "parcel": "^1.12.4",
     "sass": "^1.26.2"
   },
   "targets": {

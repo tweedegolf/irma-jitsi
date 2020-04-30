@@ -1,0 +1,23 @@
+// Colors
+$primary: #114f90;
+$secondary: #27b2e1;
+
+$black: #000;
+$white: #fff;
+
+// Breakpoints
+$breakpoint-tablet: 48rem;
+$breakpoint-mobile: 20rem;
+
+// Mixins
+@mixin text-stipe {
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1rem;
+    width: 3rem;
+    height: 0.2rem;
+    background-color: $primary;
+  }
+}

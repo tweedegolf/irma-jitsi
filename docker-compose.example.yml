@@ -1,0 +1,72 @@
+version: '3.3'
+services:
+  nginx:
+    image: nginx:1.17
+    depends_on:
+    - backend
+    - frontend
+    volumes:
+    - ".:/app:cached"
+    - "./docker/nginx.conf:/etc/nginx/nginx.conf:ro"
+    - "./docker/certificates/server.pem:/etc/ssl/server.pem:ro"
+    - "./docker/certificates/server.key:/etc/ssl/server.key:ro"
+    ports: ["127.0.0.1:443:443", "127.0.0.1:80:80"]
+    environment:
+      TZ: Europe/Amsterdam
+    networks:
+        default:
+            aliases:
+            - backend.veiligjitsi.test.tweede.golf
+            - veiligjitsi.test.tweede.golf
+
+  backend:
+    build:
+      dockerfile: './docker/backend.Dockerfile'
+      context: .
+      args:
+        GO_VERSION: "1.14"
+        USER_ID: "$USER_ID"
+        GROUP_ID: "$GROUP_ID"
+    user: "$USER_ID:$GROUP_ID"
+    volumes:
+    - "./backend:/go/src/app:cached"
+    - "./bin/:/bin/app/:cached"
+    command:
+    - "/bin/app/watch.sh"
+    - "app"
+    - "--listen-address=:8080"
+    - "--irma-server=https://irma-noauth.demo.sarif.nl"
+    - '--room-map={"veilig-jitsi":[[["irma-demo.MijnOverheid.fullName.firstname", "irma-demo.MijnOverheid.fullName.familyname", "irma-demo.MijnOverheid.birthCertificate.dateofbirth"]]]}'
+    - "--backend-name=veilig-jitsi-backend"
+    - "--backend-secret=backendsecret"
+    - "--jitsi-name=veilig-jitsi"
+    - "--jitsi-secret=jitsisecret"
+    - "--jitsi-domain=jitsi.demo.irma.tweede.golf"
+    networks:
+      - default
+    ports: ["127.0.0.1:8080:8080"]
+    expose: [8080]
+
+  frontend:
+    image: "node:buster-slim"
+    user: "$USER_ID:$GROUP_ID"
+    volumes:
+    - "./frontend:/app:cached"
+    working_dir: "/app"
+    command:
+    - "/usr/local/bin/yarn"
+    - "parcel"
+    - "serve"
+    - "--no-hmr"
+    - "src/index.html"
+    environment:
+    - HOME=/tmp/nodehome
+    - ROOM=veilig-jitsi
+    - JITSI_HOST=jitsi.demo.irma.tweede.golf
+    - BACKEND_HOST=backend.veiligjitsi.test.tweede.golf
+    networks:
+    - default
+    expose: [1234]
+
+networks:
+  default: ~

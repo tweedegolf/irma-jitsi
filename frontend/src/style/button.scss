@@ -1,0 +1,14 @@
+button {
+	position: relative;
+	padding: 1rem;
+	color: $white;
+	border: 0;
+  background-color: $primary;
+  text-transform: uppercase;
+  transition: background-color .5s ease;
+  
+  &:hover {
+    background-color: $secondary;
+    transition: background-color .5s ease;
+  }
+}

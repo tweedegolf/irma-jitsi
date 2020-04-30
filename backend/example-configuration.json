@@ -1,0 +1,27 @@
+{
+	"listen-address": ":8080",
+	"irma-server": "https://irma-noauth.demo.sarif.nl",
+	"room-map": {
+		"foo": [
+			[
+				[
+					"irma-demo.MijnOverheid.fullName.firstname",
+					"irma-demo.MijnOverheid.fullName.familyname",
+					"irma-demo.MijnOverheid.birthCertificate.dateofbirth"
+				]
+			]
+		]
+	},
+	"default-room": [
+		[
+			[
+				"irma-demo.MijnOverheid.fullName.firstname"
+			]
+		]
+	],
+	"backend-name": "veilig-jitsi-backend",
+	"backend-secret": "backendsecret",
+	"jitsi-name": "veilig-jitsi",
+	"jitsi-secret": "jitsisecret",
+	"jitsi-domain": "jitsi.veilig-jitsi.nl"
+}
